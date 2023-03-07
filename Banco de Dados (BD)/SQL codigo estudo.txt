@@ -1,0 +1,53 @@
+create database nome; (criar database)
+show tables; (mostrar tabelas)
+
+create table funcionario (
+codf int primary key,
+nome varchar(40) not null,
+idade smallint,
+cpf varchar(11) unique,
+cidade varchar(30),
+salario numeric(10,2),
+cargo varchar(20)
+);
+
+create table consulta (
+num_consulta int primary key auto_increment,
+fk_codm int,
+fk_codp int,
+calendario date,
+hora time,
+foreign key (fk_codm) references medico (codm),
+foreign key (fk_codp) references paciente (codp)
+);
+
+alter table funcionario add nroa int;
+alter table funcionario drop column cargo;
+alter table cliente modify cidade varchar(30);
+alter table cliente change nome_cli nome_cliente varchar(60);
+
+select * from consulta; (ver a povoacao)
+
+drop table consulta;
+
+insert into ambulatorio (nroa, andar, capacidade)
+values (5, 2, 55); 
+insert into medico (codm, nome, idade, especialidade, cpf, cidade, fk_nroa)
+values (1, 'Joao', 40, 'ortopedia', 10000100000, 'florianopolis', 1);
+
+update paciente set cidade = 'ilhota'
+where codp = 2;
+update consulta set calendario = '2006/07/04', hora = '12:00'
+where num_consulta = 2;
+update Consulta set tempo = addtime(tempo,'01:30:00')
+        //where num_consulta = 9;
+
+delete from consulta where num_consulta = 11;
+delete from paciente where doenca = 'cancer';
+delete from medico where cidade = ('biguacu', 'palhoca';)
+
+select cidade from paciente;
+select * from medico where cidade in (select cidade from paciente);
+select * from paciente where idade >= 30;
+select count(*) from paciente where idade >= 30;
+select sum(salario) as 'Total' from funcionario;
